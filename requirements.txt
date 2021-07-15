@@ -1,0 +1,7 @@
+Django==3.2.4
+gunicorn==20.1.0
+django-widget-tweaks==1.4.8
+whitenoise==5.2.0
+humanize==3.7.0
+coinpaprika==0.1.0
+requests==2.25.1

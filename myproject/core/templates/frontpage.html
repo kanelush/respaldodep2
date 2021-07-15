@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %} Crypton @ Chile {% endblock %}
+{% block content %}
+<style>
+
+.parent{
+  overflow: hidden;
+  overflow-x: auto;
+  clear: both;
+  width: 100%;
+}
+@media only screen 
+    and (device-width: 390px) 
+    and (device-height: 844px) 
+    and (-webkit-device-pixel-ratio: 3) {
+      .table{
+	      width: 72%;
+      }
+    }
+ @media only screen 
+    and (device-width: 414px) 
+    and (device-height: 896px) 
+    and (-webkit-device-pixel-ratio: 2) {
+	    .container {
+		width: auto;
+		margin-left: auto;
+	    }
+    }   
+    
+@media screen and (max-width: 600px) {
+ .parent {
+    width: 75%;
+    
+  }
+.title {
+text-align: center !important;
+margin-left: 120px;
+}
+}
+
+</style>
+<section class="hero">
+    <h1 class="title is-2 has-text-centered">Crypton.cl</h1>
+    <p class="content">Facilitar la divigulcación y el acceso a la industria de las criptomonedas </p>
+    <!--<h1 class="title is-3 has-text-centered">Info de Cryptoactivos, precios, reviews y análisis</h1>!-->
+<div class="container">
+        <section class="section parent">
+            
+            <table class="table card tabla">
+              <thead>
+                <tr>
+                  <th><abbr title="Position">#</abbr></th>
+                  <th>Nombre</th>
+                  <th id='thw'>Precio</th>
+                  <th><abbr title="Drawn">24h %</abbr></th>
+                  <th><abbr title="Lost">7d %</abbr></th>
+                  <th><abbr title="Won">Market Cap.</th>
+                  <th>Volumen (24h)</th>
+
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+            {% for i in responses %}
+             {% if i.quotes.USD.market_cap > 1000000000 %}
+              <tr class="card-content">
+                    <!--<th>{{ forloop.counter }}</th> -->
+		   <!-- <th>{{ i.rank }}</th> -->
+		      <th>{{ forloop.counter }}</th>	
+                      <th ><img src="{{i.image}}" alt=""><a href="">{{ i.name|capfirst }}</a></td>
+                      <td>${{ i.quotes.USD.price|floatformat:"2"|intcomma }}</td>
+                      <td>{{ i.quotes.USD.market_cap_change_24h }}%</td>
+                      <td>{{ i.quotes.USD.percent_change_7d }}%</td>
+                      <td>${{ i.quotes.USD.market_cap|intcomma }}</td>
+                      <td>${{ i.quotes.USD.volume_24h|floatformat:"2"|intcomma }}</td>
+                   </tr>
+                {% endif %}
+
+             {% endfor %}
+
+             </tbody>
+         
+            </table>
+        </section>
+    </div>
+</section>
+
+<section class="hero">Precios y estadísticas en tiempo real</section>
+{% endblock %}
